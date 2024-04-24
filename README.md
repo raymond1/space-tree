@@ -50,6 +50,7 @@ The number of leading spaces on each line is referred to as the "depth" of the l
 
 In example 1, the depths and node text of the lines are as follows:
 
+```
 Text of Entire Line | Depth | Node Text
 ---------------------------------------
 "Cat"               | 0     | "Cat"
@@ -61,7 +62,7 @@ Text of Entire Line | Depth | Node Text
 "  1"               | 2     | "1"
 " name"             | 1     | "name"
 "  Mouse"           | 2     | "Mouse"
-
+```
 Together, the depth and the node text represent nodes in a mathematical tree.
 
 ## Hierarchical information in Space Tree notation
