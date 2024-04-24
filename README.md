@@ -42,7 +42,7 @@ Lines are delineated from each other with the newline character. Each line, in t
 
 In the example from the previous section, the lines are: "Cat", " legs", "  4", " whiskers", "  many", " tails", " 1", " name", and "  Mouse".
 
-The number of leading spaces on each line is referred to as the "depth" of the line. The textual information on each line is referred to as the "node text". Because each line represents a node in a mathematical tree, a node can also be said to have a depth or node text.
+The number of leading spaces on each line is referred to as the "depth" of the line. The textual information on each line is referred to as the "node text". Together, the depth and the node text represent nodes in an abstract mathematical tree.
 
 In the example above, the depths and node text of the lines are as follows:
 
@@ -59,7 +59,6 @@ Text of Entire Line | Depth | Node Text
 " name"             | 1     | "name"
 "  Mouse"           | 2     | "Mouse"
 ```
-Together, the depth and the node text represent nodes in a mathematical tree.
 
 ## Hierarchical information in Space Tree notation
 The depth of a line is not arbitrary and must follow certain rules.
