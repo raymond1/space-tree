@@ -1,18 +1,16 @@
 # Space Tree: the line-based object notation
 
-Space Tree notation is a line-based string format that can represent trees of information using spaces and lines. You can also think of it as a serialization format where parent-child relationships can be specified. You can store hierarchical information representing objects as a string using Space Tree notation, and Space Tree strings can be converted back into objects.
+Space Tree notation is a string format that can store parent-child relationships between pieces of string information using spaces and lines. It can be used to serialize/deserialize computer objects or to brainstorm and organize ideas for point form notes.
 
-## Why use it?
-
-Space Tree notation has an extremely simple syntax, and in some applications is more convenient than JSON.
+Its syntax is simpler than JSON and in some use cases is more convenient.
 
 ## The basic idea
 
-Imagine that you have a cat and are trying to describe it. Using Space Tree Notation, you would create a string representing the subject that you are describing. So, you would start with the following string:
+Imagine that you have a cat and are trying to describe it. Using Space Tree Notation, you could start by typing in the subject of your description:
 ```
 Cat
 ```
-Then, to describe this cat, you can think of some random traits of it, such as legs, whiskers, tails, and its name. Using Space Tree notation, you would then add traits to describe the cat by adding one line starting with a space for every trait that you have in mind, like so:
+Then, to describe this cat, you can think of some random traits this cat has, such as legs, whiskers, tails, and its name. Using Space Tree notation, you would then add one line for each trait you want to relate with your cat. To indicate that the traits belong to your cat, the lines should be indented using a single space, like so:
 
 ```
 Cat
@@ -36,6 +34,7 @@ Cat
   Mouse
 ```
 
+Note that there is no limit to the number of levels in this format. Traits can have traits, and those traits can have traits as well.
 So, Space Tree syntax essentially describes more formally and in greater detail how objects can be described by using spaces to represent hierarchical information and lines to separate each piece of information that is relevant to your thought.
 
 # Description of Space Tree syntax
@@ -48,7 +47,7 @@ In the example from the previous section, the lines are: "Cat", " legs", "  4", 
 
 The number of leading spaces on each line is referred to as the "depth" of the line. The textual information on each line is referred to as the node text. Because each line represents a node in a mathematical tree, a node can also be said to have a depth or node text.
 
-In example 1, the depths and node text of the lines are as follows:
+In the example above, the depths and node text of the lines are as follows:
 
 ```
 Text of Entire Line | Depth | Node Text
