@@ -38,11 +38,11 @@ Note that there is no limit to the number of levels in this format. Traits can h
 
 A valid Space Tree string consists of one or more lines. Each line represents a single node in a mathematical tree. To understand the structure of the tree and its information, it is necessary to explain some of the syntax and terminology of Space Tree notation.
 
-Lines are delineated from each other with the newline character. Each line, in turn consists of two parts. Part 1 consists of 0 or more leading spaces which are used to represent hierarchical information. Part 2 consists of 0 or more characters of textual information. Newlines and spaces are escaped as detailed in the section on escape sequences section. The newline character is not considered part of a line and is thought of as something that separates them only.
+Lines are delineated from each other with the newline character. Each line, in turn consists of 0 or more leading spaces followed by a piece of string information. The spaces are used as indentation to indicate parent-child relationships amongst the lines.
 
 In the example from the previous section, the lines are: "Cat", " legs", "  4", " whiskers", "  many", " tails", " 1", " name", and "  Mouse".
 
-The number of leading spaces on each line is referred to as the "depth" of the line. The textual information on each line is referred to as the node text. Because each line represents a node in a mathematical tree, a node can also be said to have a depth or node text.
+The number of leading spaces on each line is referred to as the "depth" of the line. The textual information on each line is referred to as the "node text". Because each line represents a node in a mathematical tree, a node can also be said to have a depth or node text.
 
 In the example above, the depths and node text of the lines are as follows:
 
