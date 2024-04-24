@@ -35,7 +35,7 @@ Cat
 ```
 
 Note that there is no limit to the number of levels in this format. Traits can have traits, and those traits can have traits as well.
-So, Space Tree syntax essentially describes more formally and in greater detail how objects can be described by using spaces to represent hierarchical information and lines to separate each piece of information that is relevant to your thought.
+So, Space Tree syntax essentially describes more formally and in greater detail how objects can be described by using spaces to represent hierarchical information and lines to separate each piece of information that is relevant to your thoughts.
 
 # Description of Space Tree syntax
 
