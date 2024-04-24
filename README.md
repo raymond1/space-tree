@@ -1,8 +1,6 @@
 # Space Tree: the line-based object notation
 
-Space Tree notation is a string format that can store parent-child relationships between pieces of string information using spaces and lines. It can be used to serialize/deserialize computer objects or to brainstorm and organize ideas for point form notes.
-
-Its syntax is simpler than JSON and in some use cases is more convenient.
+Space Tree notation is a string format that can store parent-child relationships between pieces of string information using spaces and lines. It can be used to serialize/deserialize computer objects or to brainstorm and organize ideas for point form notes. Its syntax is simpler than JSON and so it is sometimes more convenient to use it instead.
 
 ## The basic idea
 
@@ -35,7 +33,6 @@ Cat
 ```
 
 Note that there is no limit to the number of levels in this format. Traits can have traits, and those traits can have traits as well.
-So, Space Tree syntax essentially describes more formally and in greater detail how objects can be described by using spaces to represent hierarchical information and lines to separate each piece of information that is relevant to your thoughts.
 
 # Description of Space Tree syntax
 
