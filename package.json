@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "space-tree",
   "version": "1.0.0",
   "description": "The space tree specification plus a few functions for manipulating space tree files.",

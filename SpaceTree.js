@@ -1,8 +1,11 @@
 class SpaceTree{
+
+  //Assumes s contains a space tree which has had some of its first few lines truncated.
+  //
   //Takes in a string s containing line breaks and finds the depth of the first line.
   //Afterwards, the location where the depth becomes less than or equal to the depth of the first line is
   //considered the end of the node that started on the first line of the input string.
-  static GetEntireNodeString(s){
+  static GetFirstSubtreeFromTruncatedSpaceTree(s){
     //1)Get depth of first line, which should contain the node name
     let firstNodeDepth = SpaceTree.GetDepth(s)
 
@@ -48,7 +51,7 @@ class SpaceTree{
   }
 
   //Given a string s, returns the number of distinct root nodes
-  static GetNumberOfRootNodes(s){
+  static GetNumberOfTopLevelNodes(s){
     let rootNodes = 0
     let lines = s.split('\n')
     for (let line of lines){
@@ -60,10 +63,10 @@ class SpaceTree{
   }
 
 
-  //Takes in a tree fragment in SpaceTree format, possibly a part of a tree with leading spaces, and returns the children of the node on the first line. The children
+  //Takes in a tree subtree in SpaceTree format, possibly a part of a tree with leading spaces, and returns the children of the node on the first line. The children
   //are returned as strings
   //Assumes input string is the complete node string for a single node
-  static GetChildNodeStrings(s){
+  static GetChildSubtrees(s){
     let childNodes = []
     let lines = s.split('\n')
     let firstNodeDepth = SpaceTree.GetDepth(s)
@@ -125,7 +128,7 @@ class SpaceTree{
   }
 
   //Obtains the content of the nodes with depth 0
-  static GetRootLevelNodesContent(s){
+  static GetTopLevelNodesContent(s){
     let lines = s.split('\n')
     let returnLines = []
     for (let i = 0; i < lines.length; i++){
@@ -137,9 +140,10 @@ class SpaceTree{
     return returnLines
   }
 
+  //Assumes there could potentially be multiple depth 0 elements with no overarching root
   //Returns all nodes of depth 0
   //Assumes s is well-formed
-  static GetEntireRootNodeStrings(s){
+  static GetTopLevelSubtrees(s){
     let lines = s.split('\n')
     let returnLineNumbers = []
     let returnLines = []
@@ -162,10 +166,22 @@ class SpaceTree{
     return returnLines
   }
 
+  //Given a line, s, which contains 0 or more line breaks, this function returns the string from the beginning
+  //until the first line break, or until the end of the line.
+  static ReadOneLine(s){
+    let firstNewLineLocation = s.indexOf('\n')
+    if (firstNewLineLocation < 0){
+      return s
+    }else{
+      return s.substring(0,firstNewLineLocation)
+    }
+  }
+
   //Takes in a node string s and returns the first line, which is returned without the carriage return and leading spaces
-  static GetContent(s){
+  static GetText(s){
     let depth = SpaceTree.GetDepth(s)
-    let nodeName = Strings.ReadOneLine(s).substring(depth)
+
+    let nodeName = SpaceTree.ReadOneLine(s).substring(depth)
     return nodeName
   }
 
@@ -190,25 +206,121 @@ class SpaceTree{
   }
 
   // //
-  // static GetChildNodeStringsFromDepthAndKey(s, depth, key){
+  // static GetChildSubtreesFromDepthAndKey(s, depth, key){
   //   let lines = s.split('\n')
   //   let childNodeStrings = []
 
   //   let i = 0
   //   for(let line of lines){
-  //     if (SpaceTree.GetDepth(line) == depth && SpaceTree.GetContent(line) == key){
-  //       children = SpaceTree.GetChildNodeStrings()
+  //     if (SpaceTree.GetDepth(line) == depth && SpaceTree.GetText(line) == key){
+  //       children = SpaceTree.GetChildSubtrees()
   //       break
   //     }
   //     i++
   //   }
   // }
 
-  //Need a convert to object function
+  //Given a space tree string, returns a JavaScript object
+  //Every node is given its own JavaScript object node
   static ConvertStringToObject(s){
-    {
-      nodeString: ''
+    let currentNode = {
+      text: '',
       children:[]
     }
+    currentNode.text = SpaceTree.GetText(s)
+
+    let children = SpaceTree.GetChildSubtrees(s)
+    for (let i = 0; i < children.length;i++){
+      let childNode = SpaceTree.ConvertStringToObject(children[i])
+      currentNode.children.push(childNode)
+    }
+    return currentNode
+  }
+
+  //filter examples
+  //text
+  // apple
+  //
+  //Will return all line numbers with nodes containing the node text apple
+
+  //depth
+  // >/</=
+  // 0
+  //
+  //Will return all subtrees equal to a particular depth
+  static Filter(s, filter){
+    let filterLines = filter.split('\n')
+    let sLines = s.split('\n') //Lines of string s that was passed in
+    let returnLineNumbers = []
+    switch (filterLines[0]){
+      case 'text':
+        //get all nodal subtrees starting with the text given in the next line
+        let targetText = SpaceTree.GetText(filterLines[1])
+        for (let i = 0; i < sLines.length; i++){
+          if (SpaceTree.GetText(sLines[i]) == targetText){
+            returnLineNumbers.push(i)
+          }
+        }
+        return returnLineNumbers
+      case 'depth':
+        let operator = SpaceTree.GetText(filterLines[1])
+        if (filterLines.length < 3){
+          let errorMessage = `Depth filter syntax should be:
+depth
+ <operator> (one of =,>,<,>=,<=)
+ <target depth> (a non-negative integer)`
+          throw new Error(errorMessage)
+        }
+        let targetDepth = SpaceTree.GetText(filterLines[2])
+        for (let i = 0; i < sLines.length; i++){
+          switch (operator){
+            case '<=':
+              if (SpaceTree.GetDepth(sLines[i]) <= targetDepth){
+                returnLineNumbers.push(i)
+              }
+              break
+            case '<':
+              if (SpaceTree.GetDepth(sLines[i]) < targetDepth){
+                returnLineNumbers.push(i)
+              }
+              break
+            case '>':
+              if (SpaceTree.GetDepth(sLines[i]) > targetDepth){
+                returnLineNumbers.push(i)
+              }
+              break
+            case '>=':
+              if (SpaceTree.GetDepth(sLines[i]) >= targetDepth){
+                returnLineNumbers.push(i)
+              }
+              break
+            case '=':
+              if (SpaceTree.GetDepth(sLines[i]) == targetDepth){
+                returnLineNumbers.push(i)
+              }
+              break
+            default:
+              throw new Error("Unknown operator")
+          }
+        }
+        return returnLineNumbers
+        break
+    }
+  }
+
+
+  //Assumes a tree with a single root, but possibly extra spaces
+  //Returns a string with the minimum number of leading spaces to retain the hierarchical information of s.
+  static Redepth(s){
+   let lines = s.split('\n')
+   let firstDepth = SpaceTree.GetDepth(s)
+
+   let outputString = ''
+   for (let line of lines){
+    outputString += line.substring(firstDepth) + '\n'
+   }
+   return outputString
   }
 }
+
+export default SpaceTree

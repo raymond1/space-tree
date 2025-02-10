@@ -36,7 +36,7 @@ Note that there is no limit to the number of levels in this format. Traits can h
 
 # Description of Space Tree syntax
 
-A valid Space Tree string consists of one or more lines. Each line represents a single node in a mathematical tree. To understand the structure of the tree and its information, it is necessary to explain some of the syntax and terminology of Space Tree notation.
+A valid Space Tree string consists of one or more lines separated with the line break character. The final line must not end in a line break. Each line represents a single node in a mathematical tree. To understand the structure of the tree and its information, it is necessary to explain some of the syntax and terminology of Space Tree notation.
 
 Lines are delineated from each other with the newline character. Each line, in turn consists of 0 or more leading spaces followed by a piece of string information. The spaces are used as indentation to indicate parent-child relationships amongst the lines.
 
@@ -69,4 +69,5 @@ Rule 2) To indicate that a node is a child of another node, the child node must 
 Thus, the node represented by the line "Cat" is a root node. The nodes with node text "legs", "whiskers", "tails" and "name" are the children of the root node "Cat".
 
 ## Escape Sequences
-Because spaces and newline characters have a special meaning in Space Tree notation, they need to be escaped if used as part of the node text. Spaces become "\ ". The newline character becomes "\n".
+Spaces, newline characters and backslashes have a special meaning in Space Tree notation, so they need to be escaped if used as part of the node text. Spaces become "\ ". The newline character becomes "\n". The backslash becomes "\\".
+
