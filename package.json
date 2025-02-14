@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "space-tree",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "description": "The space tree specification plus a few functions for manipulating space tree files.",
   "main": "SpaceTree.js",
   "scripts": {
