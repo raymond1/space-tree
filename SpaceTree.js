@@ -1,5 +1,61 @@
 class SpaceTree{
 
+  //Untested
+  //a
+  // b
+  //  c
+  // d
+  // e
+  //  f
+  //Given the space tree s, this function returns the node text of the root element's
+  //children.
+  static GetChildTextNodes(s){
+    let children = SpaceTree.GetChildren(s)
+
+    let returnNodes = []
+    for (let child of children){
+      returnNodes.push(SpaceTree.GetText(child))
+    }
+    return returnNodes
+  }
+
+  //a
+  // b
+  //  c
+  //  d
+  // e
+  //  f
+  // g
+  //  h
+
+  //Assuming that all children of node 'a' are unique, the attribute of node 'a' named 'b'
+  //will return the array consisting of the children of 'b'.
+  //s is a node string.
+  //attribute is the name of the attribute whose value is being accessed
+  static GetAttributeAsArray(s, attribute){
+    let children = this.GetChildren(s)
+    let matchingChild
+    for (let child of children){
+      if (this.GetText(child) == attribute){
+        matchingChild = child
+        break
+      }
+    }
+
+    let childrenOfMatchingChild = this.GetChildren(matchingChild)
+    return childrenOfMatchingChild
+  }
+
+  //Return the child with the given nodeText
+  static GetChild(s, nodeText){
+    let children = this.GetChildren(s)
+    for (let child of children){
+      if (this.GetText(child) == nodeText){
+        return child
+      }
+    }
+  }
+
   //Assumes s contains a space tree which has had some of its first few lines truncated.
   //
   //Takes in a string s containing line breaks and finds the depth of the first line.
@@ -63,10 +119,11 @@ class SpaceTree{
   }
 
 
+
   //Takes in a tree subtree in SpaceTree format, possibly a part of a tree with leading spaces, and returns the children of the node on the first line. The children
   //are returned as strings
   //Assumes input string is the complete node string for a single node
-  static GetChildSubtrees(s){
+  static GetChildren(s){
     let childNodes = []
     let lines = s.split('\n')
     let firstNodeDepth = SpaceTree.GetDepth(s)
@@ -206,14 +263,14 @@ class SpaceTree{
   }
 
   // //
-  // static GetChildSubtreesFromDepthAndKey(s, depth, key){
+  // static GetChildrenFromDepthAndKey(s, depth, key){
   //   let lines = s.split('\n')
   //   let childNodeStrings = []
 
   //   let i = 0
   //   for(let line of lines){
   //     if (SpaceTree.GetDepth(line) == depth && SpaceTree.GetText(line) == key){
-  //       children = SpaceTree.GetChildSubtrees()
+  //       children = SpaceTree.GetChildren()
   //       break
   //     }
   //     i++
@@ -229,7 +286,7 @@ class SpaceTree{
     }
     currentNode.text = SpaceTree.GetText(s)
 
-    let children = SpaceTree.GetChildSubtrees(s)
+    let children = SpaceTree.GetChildren(s)
     for (let i = 0; i < children.length;i++){
       let childNode = SpaceTree.ConvertStringToObject(children[i])
       currentNode.children.push(childNode)
@@ -311,7 +368,7 @@ depth
 
   //Assumes a tree with a single root, but possibly extra spaces
   //Returns a string with the minimum number of leading spaces to retain the hierarchical information of s.
-  static Redepth(s){
+  static NormalizeDepth(s){
    let lines = s.split('\n')
    let firstDepth = SpaceTree.GetDepth(s)
 
