@@ -1,0 +1,4 @@
+## Build Instructions
+
+Use the command: ```make``` to build the SpaceTree.d.ts. file. 
+
