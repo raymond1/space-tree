@@ -1,3 +1,3 @@
 all:
 	cp SpaceTree.js SpaceTree.ts
-	tsc --declaration SpaceTree.ts --target ES6
+	tsc --declaration SpaceTree.js --target ES6 --emitDeclarationOnly --allowJs

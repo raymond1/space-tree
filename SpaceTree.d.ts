@@ -1,4 +1,7 @@
+export default SpaceTree;
 declare class SpaceTree {
+    static GetNodesFromLineNumbers(s: any, lineNumbers: any): string[];
+    static GetNodeFromLineNumber(s: any, n: any): string;
     static GetChildTextNodes(s: any): any[];
     static GetAttributeAsArray(s: any, attribute: any): any[];
     static GetChild(s: any, nodeText: any): any;
@@ -8,17 +11,14 @@ declare class SpaceTree {
     static GetChildren(s: any): any[];
     static GetDepth(s: any): number;
     static GetFirstLineWithDepth(depthArray: any, firstNodeDepth: any, startingLine?: number): any;
-    static GetTopLevelNodesContent(s: any): any[];
-    static GetTopLevelSubtrees(s: any): any[];
+    static GetTopLevelSubtrees(s: any): string[];
     static ReadOneLine(s: any): any;
     static GetText(s: any): any;
     static EncodeDepth(n: any): string;
-    static GetAllNodesOfDepth(s: any, n: any): {};
     static ConvertStringToObject(s: any): {
         text: string;
         children: any[];
     };
-    static Filter(s: any, filter: any): any[];
+    static Filter(s: any, filter: any): string[];
     static NormalizeDepth(s: any): string;
 }
-export default SpaceTree;
