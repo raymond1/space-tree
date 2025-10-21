@@ -75,29 +75,30 @@ class SpaceTree {
       }
     }
   }
+
+
   //Assumes s contains a space tree which has had some of its first few lines truncated.
   //
   //Takes in a string s containing line breaks and finds the depth of the first line.
   //Afterwards, the location where the depth becomes less than or equal to the depth of the first line is
   //considered the end of the node that started on the first line of the input string.
+
+  //Note: there is no delimiter at the end of the last line
   static GetFirstSubtreeFromTruncatedSpaceTree(s) {
     //1)Get depth of first line, which should contain the node name
     let firstNodeDepth = SpaceTree.GetDepth(s)
     //2)Go line by line until a lower or equal depth has been reached. That should be the end of the current node
     let lines = s.split('\n')
-    let nodeString = lines[0] + '\n'
+    let nodeString = lines[0] 
+
     for (let i = 1; i < lines.length; i++) {
       let line = lines[i]
       let lineDepth = SpaceTree.GetDepth(line)
       if (lineDepth <= firstNodeDepth) {
         break
       }
-      //No delimiter at end of last line
-      let delimiter = '\n'
-      if (i == lines.length - 1) {
-        delimiter = ''
-      }
-      nodeString += lines[i] + delimiter
+
+      nodeString += '\n' + lines[i]
     }
     return nodeString
   }
@@ -231,6 +232,7 @@ class SpaceTree {
     }
     return returnLines
   }
+  
   //Given a line, s, which contains 0 or more line breaks, this function returns the string from the beginning
   //until the first line break, or until the end of the line.
   static ReadOneLine(s) {
